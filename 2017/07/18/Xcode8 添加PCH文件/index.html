@@ -105,15 +105,29 @@
 
 
 
-<meta name="description" content="一个关注技术与人文的IT博客">
-<meta property="og:type" content="website">
+<meta name="description" content="Xcode8 添加PCH文件
+打开你的Xcode工程. 在Supporting Files目录下,选择 File &amp;gt; New &amp;gt; File &amp;gt; iOS &amp;gt; Other &amp;gt; PCH File 然后点击下一步；
+假设你的项目名称为TestDemo, 你的PCH 文件的名字建议为TestDemo-Prefix.pch,然后创建；
+选择 PCH 文件(文章的示例文件为 Tes">
+<meta property="og:type" content="article">
 <meta property="og:title" content="微湖客栈">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/07/18/Xcode8 添加PCH文件/index.html">
 <meta property="og:site_name" content="微湖客栈">
-<meta property="og:description" content="一个关注技术与人文的IT博客">
+<meta property="og:description" content="Xcode8 添加PCH文件
+打开你的Xcode工程. 在Supporting Files目录下,选择 File &amp;gt; New &amp;gt; File &amp;gt; iOS &amp;gt; Other &amp;gt; PCH File 然后点击下一步；
+假设你的项目名称为TestDemo, 你的PCH 文件的名字建议为TestDemo-Prefix.pch,然后创建；
+选择 PCH 文件(文章的示例文件为 Tes">
+<meta property="og:image" content="http://yoursite.com/Users/ztld/Desktop/1.png">
+<meta property="og:image" content="http://yoursite.com/Users/ztld/Desktop/2.png">
+<meta property="og:image" content="http://yoursite.com/Users/ztld/Desktop/3.png">
+<meta property="og:updated_time" content="2017-07-18T07:53:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微湖客栈">
-<meta name="twitter:description" content="一个关注技术与人文的IT博客">
+<meta name="twitter:description" content="Xcode8 添加PCH文件
+打开你的Xcode工程. 在Supporting Files目录下,选择 File &amp;gt; New &amp;gt; File &amp;gt; iOS &amp;gt; Other &amp;gt; PCH File 然后点击下一步；
+假设你的项目名称为TestDemo, 你的PCH 文件的名字建议为TestDemo-Prefix.pch,然后创建；
+选择 PCH 文件(文章的示例文件为 Tes">
+<meta name="twitter:image" content="http://yoursite.com/Users/ztld/Desktop/1.png">
 
 
 
@@ -141,13 +155,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/18/Xcode8 添加PCH文件/"/>
 
 
 
 
 
-  <title> 微湖客栈 </title>
+  <title>  | 微湖客栈 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -182,9 +196,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -287,9 +299,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -320,9 +332,6 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/18/Xcode8 添加PCH文件/" itemprop="url">
-                  未命名
-                </a>
               
             
           </h1>
@@ -384,356 +393,63 @@
       
 
       
-        
-          
-          Xcode8 添加PCH文件
-打开你的Xcode工程. 在Supporting Files目录下,选择 File &gt; New &gt; File &gt; iOS &gt; Other &gt; PCH File 然后点击下一步；
-假设你的项目名称为TestDemo, 你的PCH 文件的名字建
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/18/Xcode8 添加PCH文件/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="Xcode8-添加PCH文件"><a href="#Xcode8-添加PCH文件" class="headerlink" title="Xcode8 添加PCH文件"></a>Xcode8 添加PCH文件</h1><ol>
+<li>打开你的Xcode工程. 在Supporting Files目录下,选择 File &gt; New &gt; File &gt; iOS &gt; Other &gt; PCH File 然后点击下一步；</li>
+<li>假设你的项目名称为TestDemo, 你的PCH 文件的名字建议为TestDemo-Prefix.pch,然后创建；<br><img src="/Users/ztld/Desktop/1.png" alt=""></li>
+<li>选择 PCH 文件(文章的示例文件为 TestDemo-Prefix.pch) ,可以看到里面的内容如下:<br><img src="/Users/ztld/Desktop/2.png" alt=""></li>
+<li><p>找到 Project &gt; Build Settings &gt; 搜索 “Prefix Header“；</p>
+</li>
+<li><p>“Apple LLVM 8.0 -Language″ (配图是Xcode7， 7和8是一样的)栏目中你将会看到 Prefix Header 关键字；</p>
+</li>
+<li><p>输入: TestDemo/TestDemo-Prefix.pch (如 TestDemo/TestDemo-Prefix.pch )；如果你的pch文件名为TestDemo.pch, 那么这里就应该为TestDemo/TestDemo.pch</p>
+</li>
+<li><p>将Precompile Prefix Header为YES，预编译后的pch文件会被缓存起来，可以提高编译速度。效果如下</p>
+</li>
+</ol>
+<p><img src="/Users/ztld/Desktop/3.png" alt=""></p>
+
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
       
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/14/怎样把环信的示例demo移植到自己的项目中去/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孟令文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/headImage/timg.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="微湖客栈">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/14/怎样把环信的示例demo移植到自己的项目中去/" itemprop="url">
-                  《我的前半生》：比起子君，子群才是真的不幸
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-14T14:28:16+08:00">
-                2017-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/14/怎样把环信的示例demo移植到自己的项目中去/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/14/怎样把环信的示例demo移植到自己的项目中去/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/IMG_0171.JPG" alt="孟令文 WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
       
       
-
-      
-        
-          
-          
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/14/怎样把环信的示例demo移植到自己的项目中去/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/13/iOS数据存储方式之--plist文件存储/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孟令文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/headImage/timg.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="微湖客栈">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/13/iOS数据存储方式之--plist文件存储/" itemprop="url">
-                  iOS数据存储方式之–plist文件存储
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T12:50:41+08:00">
-                2017-07-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/13/iOS数据存储方式之--plist文件存储/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/13/iOS数据存储方式之--plist文件存储/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/IMG_0172.JPG" alt="孟令文 Alipay"/>
+          <p>支付宝打赏</p>
         </div>
-      </header>
-    
+      
+    </div>
+  </div>
 
-
-    <div class="post-body" itemprop="articleBody">
 
       
-      
+    </div>
 
+    <div>
       
         
-          
-          
-plist存储可以存储系统自带的对象比如NSAaary、NSDictionary等,一般可以写出writeToFile:这个方法的对象都可以使用plist存储.一般写入到Document文件夹.
 
-plist存储的写入:// 1.获得沙盒根路径
-NSString *home = NSHomeDir
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/13/iOS数据存储方式之--plist文件存储/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
@@ -741,21 +457,38 @@ NSString *home = NSHomeDir
       
 
       
-
+        
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/14/怎样把环信的示例demo移植到自己的项目中去/" rel="next" title="《我的前半生》：比起子君，子群才是真的不幸">
+                <i class="fa fa-chevron-left"></i> 《我的前半生》：比起子君，子群才是真的不幸
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -763,6 +496,17 @@ NSString *home = NSHomeDir
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -782,8 +526,17 @@ NSString *home = NSHomeDir
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/headImage/timg.jpeg"
@@ -859,6 +612,22 @@ NSString *home = NSHomeDir
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Xcode8-添加PCH文件"><span class="nav-number">1.</span> <span class="nav-text">Xcode8 添加PCH文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -966,6 +735,10 @@ NSString *home = NSHomeDir
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
@@ -983,6 +756,18 @@ NSString *home = NSHomeDir
       <script id="dsq-count-scr" src="https://孟令文.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/07/18/Xcode8 添加PCH文件/';
+          this.page.identifier = '2017/07/18/Xcode8 添加PCH文件/';
+          this.page.title = '';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://孟令文.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
