@@ -89,7 +89,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS, PHP" />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -105,15 +105,19 @@
 
 
 
-<meta name="description" content="一个关注技术与人文的IT博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="微湖客栈">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="iOS JPush + 环信 推送失败问题描述
+Not get deviceToken yet. Maybe: your certificate not configured APNs? or current network is not so good so APNs registration failed? or there is no APNs register code? Please r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS JPush + 环信 推送失败">
+<meta property="og:url" content="http://yoursite.com/2017/07/21/iOS JPush + 环信 推送失败/index.html">
 <meta property="og:site_name" content="微湖客栈">
-<meta property="og:description" content="一个关注技术与人文的IT博客">
+<meta property="og:description" content="iOS JPush + 环信 推送失败问题描述
+Not get deviceToken yet. Maybe: your certificate not configured APNs? or current network is not so good so APNs registration failed? or there is no APNs register code? Please r">
+<meta property="og:updated_time" content="2017-07-21T02:33:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="微湖客栈">
-<meta name="twitter:description" content="一个关注技术与人文的IT博客">
+<meta name="twitter:title" content="iOS JPush + 环信 推送失败">
+<meta name="twitter:description" content="iOS JPush + 环信 推送失败问题描述
+Not get deviceToken yet. Maybe: your certificate not configured APNs? or current network is not so good so APNs registration failed? or there is no APNs register code? Please r">
 
 
 
@@ -141,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/21/iOS JPush + 环信 推送失败/"/>
 
 
 
 
 
-  <title> 微湖客栈 </title>
+  <title> iOS JPush + 环信 推送失败 | 微湖客栈 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -182,9 +186,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -287,9 +289,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -319,10 +321,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/07/21/iOS JPush + 环信 推送失败/" itemprop="url">
-                  iOS JPush + 环信 推送失败
-                </a>
+                iOS JPush + 环信 推送失败
               
             
           </h1>
@@ -406,379 +405,119 @@
       
 
       
-        
-          
-          iOS JPush + 环信 推送失败问题描述
-Not get deviceToken yet. Maybe: your certificate not configured APNs? or current network is not so good so APNs registration f
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/21/iOS JPush + 环信 推送失败/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="iOS-JPush-环信-推送失败"><a href="#iOS-JPush-环信-推送失败" class="headerlink" title="iOS JPush + 环信 推送失败"></a>iOS JPush + 环信 推送失败</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><blockquote>
+<p>Not get deviceToken yet. Maybe: your certificate not configured APNs? or current network is not so good so APNs registration failed? or there is no APNs register code? Please refer to JPush docs.<br>一、先贴上官方处理方法：极光推荐处理流程（来自极光官网）</p>
+</blockquote>
+<p>如果出现上述日志，则说明一段时间内都无法获取device token，那么：</p>
+<p>1、确认你的app配置了apns权限，如果未配置apns权限，则应该会出现此错误提示。</p>
+<p>2、确认你的app运行在ios真机而非模拟器上，且通知中心中对应app的通知权限没有完全关闭（alert/sound/badge至少有一个权限是打开的）。</p>
+<p>3、确认你的网络状况，与apple的服务器的连接是通过tcp的 5223端口连接，确认你网络的对应端口是否可用，可通过下列命令来确认这点：</p>
+<p><code>telnet 1-courier.push.apple.com 5223</code></p>
+<p>在代码中可在以下两个函数中断点以确认device token的获取状态。</p>
+<p><code>- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;</code><br><code>- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;</code></p>
+<p>如果app运行进入 didFailToRegisterForRemoteNotificationsWithError 则说明app的APNS权限问题或者app运行在模拟器。</p>
+<p>如果app运行进入 didRegisterForRemoteNotificationsWithDeviceToken 则说明运行正常，请确认你在此函数中的代码中有将token传递给jpush的调用：</p>
+<p><code>[APService registerDeviceToken:deviceToken];</code></p>
+<p>如果以上两个 registerRemoteNotification 的函数都未进入， 请确认你的代码中有注册申请apns的函数调用：</p>
+<p><code>[APService registerForRemoteNotificationTypes:];</code></p>
+<p>如果上述情况都已确认且未进入第4步的任意回调函数，则可以判断无法获取token的原因在于设备与apple的网络连通性问题（注：一个设备只有在未申请过token的情况下才会需要与apple的网络交互来获取token，已经获取过某一环境token的设备在无网络的情况下也能获取到对应环境的token（环境分为 开发/生产）），这种情况下切换网络能够在大部分情况下解决此问题。</p>
+<h2 id="二、自己的原因及处理方法"><a href="#二、自己的原因及处理方法" class="headerlink" title="二、自己的原因及处理方法"></a>二、自己的原因及处理方法</h2><p>首先我们的这个项目先前加入过环信项目，环信是后加的,先前的时候极光是没问题的，然后加了环信，也一直没有测试，挡在统一测试的时候发现极光推送不管事了，然后又把极光后台证书什么的配置了一遍发现也不管用,后来到网上一查就发现是环信的问题.然后，环信的注册推送注册获取token的回调是在AppDelegate的分类写的，极光推送的是在AppDelegate内部写的!</p>
+<p>###解决方法<br>将APPDelegate中以下内部的代码复制到环信AppDelegate+EaseMob.m中</p>
+<p><code>- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;</code><br><code>- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;</code></p>
+<p>如下，为改后的AppDelegate+EaseMob.m中的注册Token的函数</p>
+<ul>
+<li><p>-(void)application:(UIApplication <em>)application` didRegisterForRemoteNotificationsWithDeviceToken:(NSData </em>)deviceToken<br>{<br>  [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];</p>
+<p>   [APService registerDeviceToken:deviceToken];<br>}</p>
+</li>
+</ul>
+
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
       
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/18/Xcode8 添加PCH文件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孟令文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/headImage/timg.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="微湖客栈">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/18/Xcode8 添加PCH文件/" itemprop="url">
-                  Xcode8 怎样添加PCH文件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T15:44:44+08:00">
-                2017-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/18/Xcode8 添加PCH文件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/18/Xcode8 添加PCH文件/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/IMG_0171.JPG" alt="孟令文 WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
       
       
-
-      
-        
-          
-          Xcode8 添加PCH文件
-打开你的Xcode工程. 在Supporting Files目录下,选择 File &gt; New &gt; File &gt; iOS &gt; Other &gt; PCH File 然后点击下一步；
-假设你的项目名称为TestDemo, 你的PCH 文件的名字建
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/18/Xcode8 添加PCH文件/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/13/iOS数据存储方式之--plist文件存储/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孟令文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/headImage/timg.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="微湖客栈">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/13/iOS数据存储方式之--plist文件存储/" itemprop="url">
-                  iOS数据存储方式之–plist文件存储
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T12:50:41+08:00">
-                2017-07-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/13/iOS数据存储方式之--plist文件存储/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/13/iOS数据存储方式之--plist文件存储/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/IMG_0172.JPG" alt="孟令文 Alipay"/>
+          <p>支付宝打赏</p>
         </div>
-      </header>
-    
+      
+    </div>
+  </div>
 
-
-    <div class="post-body" itemprop="articleBody">
 
       
-      
+    </div>
 
+    <div>
       
         
-          
-          
-plist存储可以存储系统自带的对象比如NSAaary、NSDictionary等,一般可以写出writeToFile:这个方法的对象都可以使用plist存储.一般写入到Document文件夹.
 
-plist存储的写入:// 1.获得沙盒根路径
-NSString *home = NSHomeDir
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/13/iOS数据存储方式之--plist文件存储/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
       
 
       
+        
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/18/Xcode8 添加PCH文件/" rel="next" title="Xcode8 怎样添加PCH文件">
+                <i class="fa fa-chevron-left"></i> Xcode8 怎样添加PCH文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -786,6 +525,17 @@ NSString *home = NSHomeDir
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -805,8 +555,17 @@ NSString *home = NSHomeDir
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/headImage/timg.jpeg"
@@ -882,6 +641,22 @@ NSString *home = NSHomeDir
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-JPush-环信-推送失败"><span class="nav-number">1.</span> <span class="nav-text">iOS JPush + 环信 推送失败</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、自己的原因及处理方法"><span class="nav-number">1.2.</span> <span class="nav-text">二、自己的原因及处理方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -989,6 +764,10 @@ NSString *home = NSHomeDir
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
@@ -1006,6 +785,18 @@ NSString *home = NSHomeDir
       <script id="dsq-count-scr" src="https://孟令文.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/07/21/iOS JPush + 环信 推送失败/';
+          this.page.identifier = '2017/07/21/iOS JPush + 环信 推送失败/';
+          this.page.title = 'iOS JPush + 环信 推送失败';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://孟令文.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
